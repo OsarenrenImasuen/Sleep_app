@@ -27,11 +27,12 @@ const LEVELS = [
 ];
 
 const STORE_ITEMS = [
-  { id:"boost_small",  icon:"⚡", name:"Small EXP Booster", desc:"Earn +25% XP on your next sleep session. Perfect for a quick edge.",         price:10, multiplier:1.25 },
-  { id:"boost_big",    icon:"🔥", name:"Major EXP Booster", desc:"Earn +50% XP on your next sleep session. Dream bigger, gain faster.",        price:20, multiplier:1.50 },
-  { id:"boost_ultra",  icon:"💫", name:"Ultra EXP Booster", desc:"Earn +100% XP on your next sleep session. Double your dream power.",         price:40, multiplier:2.00 },
-  { id:"lucky_night",  icon:"🌟", name:"Lucky Night Pass",  desc:"Earn +2 tokens per hour slept instead of 1, for one night.",                 price:15, multiplier:1.0, tokenBoost:true },
-  { id:"dream_elixir", icon:"🧪", name:"Dream Elixir",      desc:"Permanently earn 5 bonus XP per sleep session, forever.",                    price:80, permanent:true  },
+  { id:"boost_small",  icon:"⚡", name:"Small EXP Booster", desc:"Earn +25% XP on your next sleep session. Perfect for a quick edge.", price:10, multiplier:1.25 },
+  { id:"boost_big",    icon:"🔥", name:"Major EXP Booster", desc:"Earn +50% XP on your next sleep session. Dream bigger, gain faster.", price:20, multiplier:1.50 },
+  { id:"boost_ultra",  icon:"💫", name:"Ultra EXP Booster", desc:"Earn +100% XP on your next sleep session. Double your dream power.", price:40, multiplier:2.00 },
+  { id:"lucky_night",  icon:"🌟", name:"Lucky Night Pass",  desc:"Earn +2 tokens per hour slept instead of 1, for one night.", price:15, multiplier:1.0, tokenBoost:true },
+  { id:"dream_elixir", icon:"🧪", name:"Dream Elixir", desc:"Permanently earn 5 bonus XP per sleep session, forever.", price:80, permanent:true  },
+  {id:"money_potion", icon:"⚗️", name:"Money Potion", desc: "Earn More tokens per hour slept.", price: 45, multiplier:3.0, tokenBoost:true }
 ];
 
 // ── State ──
@@ -145,7 +146,13 @@ function renderStore() {
   grid.innerHTML = "";
 
   STORE_ITEMS.forEach(function(item) {
-    const owned = state.inventory[item.id] || 0;
+    let owned =0
+    if (state.inventory[item.id]>0){
+      owned = state.inventory[item.id]
+    } else{
+      owned = 0
+    }
+    //const owned = state.inventory[item.id] || 0;
     const isPermanentOwned = item.permanent && owned > 0;
 
     const card = document.createElement("div");
